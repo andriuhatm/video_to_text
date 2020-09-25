@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { Transcriber } = require("../Transcriber");
-const { VideoToAudio } = require("../videoToAudio");
+const { Transcriber } = require("../src/Transcriber");
+const { VideoToAudio } = require("../src/videoToAudio");
 
 router.get("/", async (req, res) => {
   try {
