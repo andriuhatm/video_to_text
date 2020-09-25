@@ -1,0 +1,11 @@
+doctype html
+html(lang="en")
+    head
+        title V2T
+    #container(style='text-align:center;')
+        form(method="POST" action="/transcribe" enctype='multipart/form-data')
+            h1 Video to text
+            input(type='file' name='file' accept='video/mp4,video/x-m4v,video/*')
+            br
+            br
+            button.btn.btn-primary(type="submit" role="submit") Upload

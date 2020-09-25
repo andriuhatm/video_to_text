@@ -1,11 +1,12 @@
 const express = require("express");
+const fs = require("fs");
 const router = express.Router();
 const { Transcriber } = require("../src/Transcriber");
 const { VideoToAudio } = require("../src/videoToAudio");
 
 router.get("/", async (req, res) => {
   try {
-    res.json({ hello: "world" });
+    res.render("index", { title: "Hey", message: "Hello there!" });
   } catch (err) {
     console.error(err);
     res.send(err);
@@ -14,14 +15,21 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
+    const file = req.files.file;
+    file.mv("./data/source/" + file.name);
+
     const converter = new VideoToAudio();
-
-    converter.load(req.body).then(() => {
-      console.log("finished conversion");
-
-      const transcriber = new Transcriber("./data/output/outfile.wav");
+    converter.convert(file.name).then((audioFile) => {
+      const transcriber = new Transcriber(audioFile);
       transcriber.loadTranscript().then((result) => {
-        res.json(result);
+        try {
+          fs.unlinkSync("./data/source/" + file.name);
+          fs.unlinkSync(audioFile);
+        } catch (err) {
+          console.error(err);
+        }
+
+        res.render("results", { result: result });
       });
     });
   } catch (err) {

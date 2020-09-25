@@ -1,32 +1,26 @@
 var spawn = require("child_process").spawn;
 
 class VideoToAudio {
-  cmd = "ffmpeg";
-  args = [
-    "-y",
-    "-i",
-    "./data/source/vid.mp4",
-    "-ar",
-    "16000",
-    "-ac",
-    "1",
-    "./data/output/outfile.wav",
-  ];
-
-  load(request) {
-    return new Promise((resolve, error) => {
-      const proc = spawn(this.cmd, this.args);
-
-      proc.stderr.setEncoding("utf8");
-      proc.stderr.on("data", function (data) {
-        console.log(data);
-      });
-
-      proc.on("close", function () {
-        console.log("finished");
-
-        resolve();
-      });
+  convert(filename) {
+    return new Promise((resolve, reject) => {
+      try {
+        const proc = spawn("ffmpeg", [
+          "-y",
+          "-i",
+          "./data/source/" + filename,
+          "-ar",
+          "16000",
+          "-ac",
+          "1",
+          "./data/output/output.wav",
+        ]);
+        proc.stderr.setEncoding("utf8");
+        proc.on("close", function () {
+          resolve("./data/output/output.wav");
+        });
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 }

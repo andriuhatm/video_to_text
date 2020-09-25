@@ -80,10 +80,8 @@ class Transcriber {
 
           const audioLength =
             (audioBuffer.length / 2) * (1 / this.desiredSampleRate);
-          console.log("audio length", audioLength);
 
           const result = this.model.stt(audioBuffer);
-          console.log("result:", result);
           resolve(result);
         });
       } catch (err) {
