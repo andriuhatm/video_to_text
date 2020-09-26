@@ -14,3 +14,4 @@ http://bugshark.tech:4000/transcribe
 # Todo
 1. SSL Certificate
 2. Dynamic file name for multiple uploads
+3. Convert to typescript
