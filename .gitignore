@@ -3,3 +3,5 @@ config/config.env
 models/**
 !models/Readme.md
 data/*/*
+!data/output/Readme.md
+!data/source/Readme.md
