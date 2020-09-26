@@ -19,19 +19,29 @@ router.post("/", async (req, res) => {
     file.mv("/tmp/" + file.name);
 
     const converter = new VideoToAudio();
-    converter.convert(file.name).then((audioFile) => {
-      const transcriber = new Transcriber(audioFile);
-      transcriber.loadTranscript().then((result) => {
-        try {
-          fs.unlinkSync("/tmp/" + file.name);
-          fs.unlinkSync(audioFile);
-        } catch (err) {
-          console.error(err);
-        }
+    converter.convert(file.name).then(
+      (audioFile) => {
+        const transcriber = new Transcriber(audioFile);
+        transcriber.loadTranscript().then(
+          (result) => {
+            try {
+              fs.unlinkSync("/tmp/" + file.name);
+              fs.unlinkSync(audioFile);
+            } catch (err) {
+              console.error(err);
+            }
 
-        res.render("results", { result: result });
-      });
-    });
+            res.render("results", { result: result });
+          },
+          (err) => {
+            console.error(err);
+          }
+        );
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
   } catch (err) {
     console.error(err);
     res.send(err.message ? err.message : err);
