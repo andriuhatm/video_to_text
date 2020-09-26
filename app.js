@@ -47,7 +47,8 @@ app.use("/transcribe", require("./routes/transcribe"));
 
 const PORT = process.env.PORT || 4040;
 
-app.listen(
+const server = app.listen(
   PORT,
   console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
 );
+server.setTimeout(500000);
