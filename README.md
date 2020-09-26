@@ -7,3 +7,6 @@
 ```localhost:8080/transcribe```
   
 Note: need to have `ffmpeg` and `sox` libraries available in cli.
+
+# Demo
+http://bugshark.tech:4000/transcribe
