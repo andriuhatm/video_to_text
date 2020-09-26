@@ -5,3 +5,5 @@
 
 # Endpoint
 ```localhost:8080/transcribe```
+  
+Note: need to have `ffmpeg` and `sox` libraries available in cli.
