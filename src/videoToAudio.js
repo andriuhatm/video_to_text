@@ -7,16 +7,16 @@ class VideoToAudio {
         const proc = spawn("ffmpeg", [
           "-y",
           "-i",
-          "./data/source/" + filename,
+          "/tmp/" + filename,
           "-ar",
           "16000",
           "-ac",
           "1",
-          "./data/output/output.wav",
+          "/tmp/output.wav",
         ]);
         proc.stderr.setEncoding("utf8");
         proc.on("close", function () {
-          resolve("./data/output/output.wav");
+          resolve("/tmp/output.wav");
         });
       } catch (error) {
         reject(error);
