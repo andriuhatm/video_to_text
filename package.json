@@ -4,7 +4,7 @@
   "description": "API - video to text",
   "main": "app.js",
   "scripts": {
-    "start": "pm2 start app.js",
+    "start": "node app.js",
     "dev": "cross-env NODE_ENV=development nodemon app",
     "postinstall": "node ./config/post-install.js"
   },
